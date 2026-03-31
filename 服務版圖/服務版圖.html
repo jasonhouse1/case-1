@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>服務版圖</title>
+
+<style>
+  /* 手機橫向滑動 */
+  body {
+    margin: 0;
+    min-width: 1100px;
+    overflow-x: auto;
+    font-family: "Microsoft JhengHei",
+                 "PingFang TC",
+                 "Noto Sans TC",
+                 sans-serif;
+    background: #0d0e12;
+  }
+
+  /* 全域 */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* 背景 */
+  .new_bg_container {
+    width: 100%;
+    margin-bottom: -71px;
+    min-height: 100vh;
+    float: left;
+    position: relative;
+    overflow: hidden;
+    background-color: #0d0e12;
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.18) 100%),
+      url('./images/bg.jpg');
+  }
+
+  /* 版心 */
+  .content_container {
+    position: relative;
+    width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 92px;
+    padding-bottom: 140px;
+  }
+
+  /* 標題區 */
+  .service_header {
+    position: relative;
+    text-align: center;
+    padding-bottom: 46px;
+  }
+
+  /* 大字背景 */
+  .ghost_title {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    width: 560px;
+    height: 126px;
+    background: url('./images/服務版圖-白.png') center / contain no-repeat;
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+    font-size: 0;
+    color: transparent;
+    overflow: hidden;
+    opacity: 0.32;
+  }
+
+  /* 主標題 */
+  .main_title {
+    position: relative;
+    z-index: 1;
+    margin: 46px auto 22px;
+    width: 300px;
+    height: 94px;
+    background: url('./images/服務版圖.png') center / contain no-repeat;
+    font-size: 0;
+    color: transparent;
+    overflow: hidden;
+  }
+
+  /* 文字 */
+  .intro_text {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    max-width: 680px;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1.8;
+    font-weight: 500;
+    text-align: right;
+    transform: translateX(-110px);
+  }
+
+  .intro_text .highlight {
+    color: #f78700;
+    font-weight: 700;
+  }
+
+  /* 卡片列表 */
+  .store_list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* 卡片 */
+  .store_card {
+    position: relative;
+    width: 720px;
+    max-width: 720px;
+    margin: 0 auto 28px;
+    border: 1.5px solid rgba(247, 135, 0, 0.95);
+    border-radius: 0 28px 28px 0;
+    background: rgba(14, 15, 20, 0.82);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+    overflow: hidden;
+  }
+
+  /* 左側箸子 */
+  .store_card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 68px;
+    background: #f78700;
+    z-index: 0;
+  }
+
+  /* 最後一張 */
+  .store_card:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 卡片內容 */
+  .store_card_main {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 8px 16px 8px 68px;
+    min-height: 198px;
+  }
+
+  /* 左右區塊 */
+  .store_left,
+  .store_right {
+    min-width: 0;
+  }
+
+  /* 左側圖片 */
+  .store_left {
+    width: 48%;
+    display: flex;
+    align-items: center;
+  }
+
+  /* 右側文字 */
+  .store_right {
+    width: 52%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* 圖片框 */
+  .promo_image {
+    width: 100%;
+    max-width: 315px;
+    height: 186px;
+    margin: 2px 0 0;
+    overflow: hidden;
+    border-radius: 0;
+    border: none;
+    background: transparent;
+  }
+
+  /* 圖片 */
+  .promo_image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  /* 文字資訊 */
+  .info_block {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transform: translateY(-2px);
+  }
+
+  /* 店名 */
+  .info_title {
+    position: relative;
+    margin: 0;
+    padding-left: 0.7em;
+    color: #ffffff;
+    font-size: clamp(23px, 2vw, 27px);
+    line-height: 1.4;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* 店名前符號 */
+  .info_title::before {
+    content: "|";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #ffffff;
+  }
+
+  /* 資訊列 */
+  .info_row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  /* 最後一列 */
+  .info_row:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 隱藏圖示 */
+  .info_icon {
+    display: none;
+  }
+
+  /* 資訊文字 */
+  .info_text {
+    padding-left: 0.85em;
+    color: #f78700;
+    font-size: clamp(18px, 1.4vw, 20px);
+    line-height: 1.5;
+    font-weight: 500;
+    word-break: break-word;
+  }
+
+  /* 第一列加粗 */
+  .info_row:first-of-type .info_text {
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+ 
+</style>
+</head>
+<body>
+<div class="new_bg_container">
+  <div class="content_container">
+    <div class="service_header">
+      <h2 class="ghost_title">服務版圖</h2>
+      <h1 class="main_title">服務版圖</h1>
+      <div class="intro_text">
+        深耕在地，建構強大的專業銷售與服務網絡<br>
+        買電腦最怕變成電腦孤兒。我們擁有 <span class="highlight">6 家實體據點</span><br>
+        從 <span class="highlight">台北光華商圈到中台灣</span>，強大的實體通路就是您<br>
+        <span class="highlight">最安心的售後後盾</span>
+      </div>
+    </div>
+
+    <div class="store_list">
+      <div class="store_card">
+        <div class="store_card_main">
+          <div class="store_left">
+            <div class="promo_image">
+              <img src="https://img.meepshop.com/V_MKdK8hG7P54AuvGW4sYfR5xOFAOqdXsUy1NiSgjHk/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvNjM3NjNkNTMtMGZhNC00MDI4LThlYjMtNmYzZTliODQyMGMwLnBuZw" alt="華克Acer宏碁">
+            </div>
+          </div>
+          <div class="store_right">
+            <div class="info_block">
+              <h4 class="info_title">華克 Acer 專賣店</h4>
+              <div class="info_row">
+                <div class="info_text">02-2321-0386</div>
+              </div>
+              <div class="info_row">
+                <div class="info_text">台北市中正區八德路一段<br>43巷24號</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="store_card">
+        <div class="store_card_main">
+          <div class="store_left">
+            <div class="promo_image">
+              <img src="https://img.meepshop.com/mIl7UQUrAZqHUjPdXEPHgCmfN-w08e61IeMvNO8_qho/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvZGJlNWE5MjAtNzA1ZC00YjhiLWIwZjktZjBiNWRlM2U3YTQwLnBuZw" alt="華克八德總店">
+            </div>
+          </div>
+          <div class="store_right">
+            <div class="info_block">
+              <h4 class="info_title">華克八德總店</h4>
+              <div class="info_row">
+                <div class="info_text">02-2392-8806</div>
+              </div>
+              <div class="info_row">
+                <div class="info_text">台北市中正區八德路一段<br>76號</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="store_card">
+        <div class="store_card_main">
+          <div class="store_left">
+            <div class="promo_image">
+              <img src="https://img.meepshop.com/RvG80hpsBMjjTizaksZtl9mggLGZiSfDzQH4qOx0gRw/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvMmVkNWYxNmEtNTUxNi00ZDc3LWEwNzUtMWM4OGIxMzYxMTAzLnBuZw" alt="華克二店">
+            </div>
+          </div>
+          <div class="store_right">
+            <div class="info_block">
+              <h4 class="info_title">華克二店</h4>
+              <div class="info_row">
+                <div class="info_text">02-2396-2552</div>
+              </div>
+              <div class="info_row">
+                <div class="info_text">台北市中正區八德路一段<br>43巷6號</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="store_card">
+        <div class="store_card_main">
+          <div class="store_left">
+            <div class="promo_image">
+              <img src="https://img.meepshop.com/MHxmpfGzMk_Z7K4QA__X5ZSd2vQyisZZ8oOe0liUdXM/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvNDRjMjgyZTEtMGI3Ni00MWNjLWExNGItZDJjYjlkNmQxMjVjLnBuZw" alt="華克光華店">
+            </div>
+          </div>
+          <div class="store_right">
+            <div class="info_block">
+              <h4 class="info_title">華克光華店</h4>
+              <div class="info_row">
+                <div class="info_text">02-2392-8765</div>
+              </div>
+              <div class="info_row">
+                <div class="info_text">台北市中正區市民大道三段<br>8號30-31櫃2樓</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="store_card">
+        <div class="store_card_main">
+          <div class="store_left">
+            <div class="promo_image">
+              <img src="https://img.meepshop.com/mIl7UQUrAZqHUjPdXEPHgCmfN-w08e61IeMvNO8_qho/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvZGJlNWE5MjAtNzA1ZC00YjhiLWIwZjktZjBiNWRlM2U3YTQwLnBuZw" alt="華克科大店">
+            </div>
+          </div>
+          <div class="store_right">
+            <div class="info_block">
+              <h4 class="info_title">華克科大店</h4>
+              <div class="info_row">
+                <div class="info_text">02-2321-4488</div>
+              </div>
+              <div class="info_row">
+                <div class="info_text">台北市中正區八德路一段<br>巷4號樓</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="store_card">
+        <div class="store_card_main">
+          <div class="store_left">
+            <div class="promo_image">
+              <img src="https://img.meepshop.com/D7xD8ddx1SV6RANkyD6htZYlsGtIq3UDuL9AOgJdeZk/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvY2JlYmQwZDEtMWZhOS00YmM3LWE0NmEtY2JkYzc4YjdmM2RiLnBuZw" alt="華克台中店">
+            </div>
+          </div>
+          <div class="store_right">
+            <div class="info_block">
+              <h4 class="info_title">華克台中店</h4>
+              <div class="info_row">
+                <div class="info_text">04-2329-8801</div>
+              </div>
+              <div class="info_row">
+                <div class="info_text">403台中市西區英才路<br>508號（209櫃）</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

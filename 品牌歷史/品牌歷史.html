@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>品牌歷史</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+    background: #0d0e12;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .new_bg_container {
+    width: 100%;
+    margin-bottom: -71px;
+    min-height: 100vh;
+    float: left;
+    position: relative;
+    overflow: hidden;
+    background-color: #0d0e12;
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.18) 100%),
+      url('https://img.meepshop.com/B7LuPsWLfpzyEK9V-vQTTaZ0tSpZ70X-rSOzUeNiw2Y/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvNDk2ZTBlNzYtOTQ2Yi00Nzc2LTk5YzQtNzgxMzAwMDE1YzFhLmpwZWc');
+  }
+
+  .content_container {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 860px;
+    padding: 88px 28px 150px;
+  }
+
+  .history_header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .history_title {
+    width: 300px;
+    height: 78px;
+    margin: 0 auto 20px;
+    background-image: url('./images/品牌歷史@3x.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    font-size: 0;
+    color: transparent;
+    overflow: hidden;
+  }
+
+  .history_subtitle {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 18px;
+    line-height: 1.8;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .timeline {
+    position: relative;
+    width: 100%;
+    padding: 12px 0 0;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background: rgba(247, 135, 0, 0.88);
+    z-index: 0;
+  }
+
+  .timeline_item {
+    position: relative;
+    width: 100%;
+    min-height: 190px;
+    margin-bottom: 62px;
+  }
+
+  .timeline_item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline_item .timeline_dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
+    margin-top: -9px;
+    border-radius: 50%;
+    background: #0d0e12;
+    border: 2px solid #f78700;
+    z-index: 3;
+  }
+
+  .timeline_item .timeline_dot::before,
+  .timeline_item .timeline_dot::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 32px;
+    height: 2px;
+    margin-top: -1px;
+    background: rgba(247, 135, 0, 0.88);
+  }
+
+  .timeline_item.left .timeline_dot::before {
+    display: none;
+  }
+
+  .timeline_item.left .timeline_dot::after {
+    left: 100%;
+  }
+
+  .timeline_item.right .timeline_dot::after {
+    display: none;
+  }
+
+  .timeline_item.right .timeline_dot::before {
+    right: 100%;
+  }
+
+  .timeline_inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 34px;
+    z-index: 1;
+  }
+
+  .timeline_item.left .timeline_inner {
+    flex-direction: row;
+  }
+
+  .timeline_item.right .timeline_inner {
+    flex-direction: row;
+  }
+
+  .timeline_col {
+    width: calc(50% - 34px);
+  }
+
+  .timeline_text_wrap,
+  .timeline_image_wrap {
+    display: flex;
+    align-items: center;
+  }
+
+  .timeline_item.left .timeline_text_wrap {
+    justify-content: flex-end;
+  }
+
+  .timeline_item.left .timeline_image_wrap {
+    justify-content: flex-start;
+  }
+
+  .timeline_item.right .timeline_text_wrap {
+    justify-content: flex-start;
+    order: 2;
+  }
+
+  .timeline_item.right .timeline_image_wrap {
+    justify-content: flex-end;
+    order: 1;
+  }
+
+  .history_card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 16px;
+    row-gap: 10px;
+    align-items: start;
+    width: 100%;
+    max-width: 420px;
+    min-height: 208px;
+    padding: 24px 26px 24px;
+    border: 2px solid rgba(247, 135, 0, 0.92);
+    border-radius: 34px;
+    background: rgba(27, 28, 32, 0.9);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+  }
+
+  .timeline_item.left .history_card {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right-color: transparent;
+  }
+
+  .timeline_item.right .history_card {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left-color: transparent;
+  }
+
+  .history_card .year {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+    color: #f78700;
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+  }
+
+  .history_card .title {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    color: #ffffff;
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .history_card .desc {
+    grid-column: 2;
+    grid-row: 2;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 17px;
+    line-height: 1.9;
+    font-weight: 500;
+  }
+
+  .history_card .highlight {
+    color: #f78700;
+    font-weight: 700;
+  }
+
+  .history_image {
+    width: 100%;
+    max-width: 230px;
+    height: 130px;
+    overflow: hidden;
+    border-right: 4px solid #f78700;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    background: #1b1d22;
+  }
+
+  .history_image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 767px) {
+    .content_container {
+      padding: 64px 16px 96px;
+    }
+
+    .history_header {
+      margin-bottom: 38px;
+    }
+
+    .history_title {
+      width: 220px;
+      height: 58px;
+      margin-bottom: 14px;
+    }
+
+    .history_subtitle {
+      font-size: 14px;
+      line-height: 1.9;
+      padding: 0 8px;
+    }
+
+    .timeline::before {
+      left: 20px;
+      transform: none;
+    }
+
+    .timeline_item {
+      min-height: auto;
+      margin-bottom: 34px;
+      padding-left: 42px;
+    }
+
+    .timeline_item .timeline_dot {
+      display: none;
+    }
+
+    .timeline_inner,
+    .timeline_item.left .timeline_inner,
+    .timeline_item.right .timeline_inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .timeline_col,
+    .timeline_item.left .timeline_text_wrap,
+    .timeline_item.left .timeline_image_wrap,
+    .timeline_item.right .timeline_text_wrap,
+    .timeline_item.right .timeline_image_wrap {
+      width: 100%;
+      justify-content: flex-start;
+      order: initial;
+    }
+
+    .timeline_item.left .timeline_text_wrap,
+    .timeline_item.right .timeline_text_wrap {
+      order: 1;
+    }
+
+    .timeline_item.left .timeline_image_wrap,
+    .timeline_item.right .timeline_image_wrap {
+      position: relative;
+      order: 2;
+    }
+
+    .timeline_item.left .timeline_image_wrap::before,
+    .timeline_item.right .timeline_image_wrap::before {
+      content: "";
+      position: absolute;
+      left: -22px;
+      top: 50%;
+      width: 22px;
+      height: 2px;
+      background: rgba(247, 135, 0, 0.88);
+      transform: translateY(-50%);
+    }
+
+    .timeline_item.left .timeline_image_wrap::after,
+    .timeline_item.right .timeline_image_wrap::after {
+      content: "";
+      position: absolute;
+      left: -31px;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #f78700;
+      background: #0d0e12;
+      transform: translateY(-50%);
+      box-sizing: border-box;
+    }
+
+    .history_card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 10px;
+      row-gap: 8px;
+      max-width: 100%;
+      min-height: auto;
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+    }
+
+    .timeline_item.left .history_card,
+    .timeline_item.right .history_card {
+      border-left-color: transparent;
+      border-right-color: rgba(247, 135, 0, 0.92);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .history_card .year {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .history_card .title {
+      font-size: 21px;
+      margin: 0;
+    }
+
+    .history_card .desc {
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .history_image {
+      max-width: 210px;
+      height: 118px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="new_bg_container">
+  <div class="content_container">
+    <div class="history_header">
+      <div class="history_title">品牌歷史</div>
+      <p class="history_subtitle">每一次的蛻變，都是為了提供更穩定的保障與服務</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline_item left">
+        <div class="timeline_dot"></div>
+        <div class="timeline_inner">
+          <div class="timeline_col timeline_text_wrap">
+            <div class="history_card">
+              <p class="year">1996</p>
+              <h3 class="title">代工起步，扎根南港</h3>
+              <p class="desc">
+                團隊於台北南港起步，<br>初期以「品牌批發」為核心<br>
+                為了帶給客戶更穩定的保障，<br>我們開始思索直接面對<br>
+                消費者的零售服務模式。
+              </p>
+            </div>
+          </div>
+          <div class="timeline_col timeline_image_wrap">
+            <div class="history_image">
+              <img src="https://img.meepshop.com/mIl7UQUrAZqHUjPdXEPHgCmfN-w08e61IeMvNO8_qho/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvZGJlNWE5MjAtNzA1ZC00YjhiLWIwZjktZjBiNWRlM2U3YTQwLnBuZw" alt="1996 品牌歷史">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline_item right">
+        <div class="timeline_dot"></div>
+        <div class="timeline_inner">
+          <div class="timeline_col timeline_text_wrap">
+            <div class="history_card">
+              <p class="year">2000</p>
+              <h3 class="title">華克招牌，正式確立</h3>
+              <p class="desc">
+                <span class="highlight">決心解決傳統通路的限制</span><br>全面轉向現金流穩健的<br>實體門市，
+                正式打響<br>華克電腦招牌，直接傾聽<br>每一位顧客的聲音。
+              </p>
+            </div>
+          </div>
+          <div class="timeline_col timeline_image_wrap">
+            <div class="history_image">
+              <img src="https://img.meepshop.com/mIl7UQUrAZqHUjPdXEPHgCmfN-w08e61IeMvNO8_qho/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvZGJlNWE5MjAtNzA1ZC00YjhiLWIwZjktZjBiNWRlM2U3YTQwLnBuZw" alt="2000 品牌歷史">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline_item left">
+        <div class="timeline_dot"></div>
+        <div class="timeline_inner">
+          <div class="timeline_col timeline_text_wrap">
+            <div class="history_card">
+              <p class="year">2006</p>
+              <h3 class="title">見證光華，精準擴張</h3>
+              <p class="desc">
+                <span class="highlight">見證光華商圈的歷史轉折</span><br>
+                我們憑藉深厚的專業底蘊<br>成功承接轉向品牌筆電的<br>高端客群，
+                並展開巷弄<br>店面佈局。
+              </p>
+            </div>
+          </div>
+          <div class="timeline_col timeline_image_wrap">
+            <div class="history_image">
+              <img src="https://img.meepshop.com/mIl7UQUrAZqHUjPdXEPHgCmfN-w08e61IeMvNO8_qho/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvZGJlNWE5MjAtNzA1ZC00YjhiLWIwZjktZjBiNWRlM2U3YTQwLnBuZw" alt="2006 品牌歷史">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline_item right">
+        <div class="timeline_dot"></div>
+        <div class="timeline_inner">
+          <div class="timeline_col timeline_text_wrap">
+            <div class="history_card">
+              <p class="year">2011</p>
+              <h3 class="title">深耕商圈，拓展巷弄版圖</h3>
+              <p class="desc">
+                因應捷運人潮與商圈發展需求<br>我們相繼<span class="highlight">擴大成立科大店與<br>二店</span>，
+                強化光華商圈邊巷弄的<br>服務覆蓋率，建構更綿密完善<br>的實體銷售網絡。
+              </p>
+            </div>
+          </div>
+          <div class="timeline_col timeline_image_wrap">
+            <div class="history_image">
+              <img src="https://img.meepshop.com/mIl7UQUrAZqHUjPdXEPHgCmfN-w08e61IeMvNO8_qho/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvZGJlNWE5MjAtNzA1ZC00YjhiLWIwZjktZjBiNWRlM2U3YTQwLnBuZw" alt="2011 品牌歷史">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline_item left">
+        <div class="timeline_dot"></div>
+        <div class="timeline_inner">
+          <div class="timeline_col timeline_text_wrap">
+            <div class="history_card">
+              <p class="year">2020</p>
+              <h3 class="title">進駐大樓，核心聚落</h3>
+              <p class="desc">
+                設立光華分公司<br>進駐光華數位新天地二樓<br>
+                 <span class="highlight">深入商圈心臟地帶強化<br>品牌核心</span> 競爭力。
+              </p>
+            </div>
+          </div>
+          <div class="timeline_col timeline_image_wrap">
+            <div class="history_image">
+              <img src="https://img.meepshop.com/mIl7UQUrAZqHUjPdXEPHgCmfN-w08e61IeMvNO8_qho/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvZGJlNWE5MjAtNzA1ZC00YjhiLWIwZjktZjBiNWRlM2U3YTQwLnBuZw" alt="2020 品牌歷史">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline_item right">
+        <div class="timeline_dot"></div>
+        <div class="timeline_inner">
+          <div class="timeline_col timeline_text_wrap">
+            <div class="history_card">
+              <p class="year">2025</p>
+              <h3 class="title">全新體驗館與數位啟航</h3>
+              <p class="desc">
+                斥資打造八德路全新門市<br>體驗館，全面擁抱數位浪潮<br>
+                結合社群互動與線上商城<br>邁向具備獨立影響力的<br>科技品牌。
+              </p>
+            </div>
+          </div>
+          <div class="timeline_col timeline_image_wrap">
+            <div class="history_image">
+              <img src="https://img.meepshop.com/mIl7UQUrAZqHUjPdXEPHgCmfN-w08e61IeMvNO8_qho/w:1920/q:80/Z3M6Ly9pbWcubWVlcGNsb3VkLmNvbS9tZWVwc2hvcC84ZjFiNTFkOS05NjVlLTQ0ODMtYTc0MC00ZjdlMDE4MjY5NWYvZmlsZXMvZGJlNWE5MjAtNzA1ZC00YjhiLWIwZjktZjBiNWRlM2U3YTQwLnBuZw" alt="2025 品牌歷史">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
