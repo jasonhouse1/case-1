@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>華克電腦｜擁抱數位浪潮</title>
+  <style>
+    :root {
+      --orange: #ff8b00;
+      --orange-light: #ffb23a;
+      --white: rgba(255,255,255,0.95);
+      --cta-gap: 2px;
+      --cta-min-width: clamp(84px, 8vw, 98px);
+      --cta-height: clamp(20px, 1.95vw, 24px);
+      --cta-pad-right: clamp(16px, 1.5vw, 18px);
+      --cta-pad-left: clamp(11px, 1.05vw, 13px);
+      --cta-font-size: clamp(10px, 0.96vw, 12px);
+      --cta-shape: polygon(
+        12% 0,
+        40% 3%,
+        58% 5%,
+        72% 8%,
+        80% 12%,
+        84% 16%,
+        92% 50%,
+        84% 84%,
+        80% 88%,
+        72% 92%,
+        58% 95%,
+        40% 97%,
+        12% 100%,
+        2% 100%,
+        9% 50%,
+        2% 0
+      );
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: #070707;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: #fff;
+    }
+    body { min-height: 100vh; }
+    .digital-wave-wrap {
+      width: max-content;
+      min-width: 1070px;
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+      background: #070707;
+    }
+    .digital-wave-canvas {
+      position: relative;
+      width: 1070px;
+      height: 1428px;
+      flex: 0 0 1070px;
+      background: #070707 url('hug/擁抱數位浪潮/images/bg.jpg') center top / cover no-repeat;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .digital-wave-canvas::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.08) 36%, rgba(0,0,0,0.10) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .layer { position: absolute; z-index: 2; }
+    .mobile-only { display: none; }
+
+    .hero-title { left: 17.944%; top: 8.82%; width: 72.336%; }
+    .hero-title-main { position: relative; z-index: 3; width: 100%; display: block; }
+    .hero-title-glow {
+      position: absolute;
+      left: 50%;
+      top: 30.5%;
+      width: 156.2%;
+      transform: translate(-50%, -50%);
+      opacity: 0.6;
+      filter: saturate(1.18) brightness(1.08);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hero-subtitle {
+      left: 30.187%;
+      top: 20.62%;
+      width: 39.252%;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(16px, 1.95vw, 22px);
+      line-height: 1.68;
+      letter-spacing: 0.02em;
+      font-weight: 500;
+    }
+
+    .visual-card {
+      width: 27.6%;
+      height: 12.4%;
+      background: linear-gradient(135deg, #ffa400 0%, #ff7f00 58%, #ff7300 100%);
+    }
+    .card-1 { left: 22.056%; top: 36.078%; clip-path: polygon(0 0, 100% 12%, 100% 88%, 0 100%); }
+    .card-2 { left: 52.105%; top: 56.2%; clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 88%); }
+    .card-3 { left: 22.056%; top: 81.3%; clip-path: polygon(0 0, 100% 12%, 100% 88%, 0 100%); }
+
+    .feature-box { width: 26.729%; color: var(--white); }
+    .feature-title {
+      color: var(--orange);
+      font-size: clamp(27px, 2.95vw, 34px);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      margin-bottom: 13px;
+    }
+    .feature-desc {
+      font-size: clamp(15px, 1.65vw, 18px);
+      line-height: 1.72;
+      font-weight: 500;
+      color: rgba(255,255,255,0.94);
+      margin-bottom: 12px;
+      text-wrap: pretty;
+    }
+    .highlight { color: var(--orange-light); font-weight: 700; }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--cta-gap);
+      width: fit-content;
+      min-width: var(--cta-min-width);
+      max-width: 100%;
+      height: var(--cta-height);
+      padding: 0 var(--cta-pad-right) 1px var(--cta-pad-left);
+      background: linear-gradient(90deg, #ffae00 0%, #ff8600 50%, #ff7800 100%);
+      color: #fff;
+      text-decoration: none;
+      font-size: var(--cta-font-size);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.01em;
+      clip-path: var(--cta-shape);
+      white-space: nowrap;
+      text-shadow: 0 0 4px rgba(255,255,255,0.12);
+      flex-shrink: 0;
+    }
+    .cta-arrow {
+      display: inline-block;
+      font-size: 14px;
+      line-height: 1;
+      transform: translateY(-0.5px);
+    }
+    .feature-1 { left: 54.019%; top: 35.518%; }
+    .feature-2 { left: 21.308%; top: 54.59%; }
+    .feature-3 { left: 54.58%; top: 79.69%; }
+
+    @media (max-width: 860px) {
+      .desktop-only { display: none !important; }
+      .mobile-only { display: block; }
+      .digital-wave-wrap {
+        width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+        justify-content: center;
+      }
+      .digital-wave-canvas {
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        flex: 1 1 auto;
+        min-height: 100svh;
+        aspect-ratio: auto;
+        padding: 40px 0 56px;
+      }
+      .hero-title, .hero-subtitle, .visual-card, .feature-box { position: static; }
+      .hero-title.layer, .hero-subtitle.layer, .visual-card.layer, .feature-box.layer { display: block; }
+      .hero-title { width: min(84vw, 640px); margin: 18px auto 0; }
+      .hero-title-glow {
+        width: 122%;
+        top: 7.9%;
+      }
+      .hero-subtitle {
+        width: min(80vw, 420px);
+        margin: 18px auto 44px;
+        font-size: clamp(15px, 4vw, 17px);
+        line-height: 1.7;
+      }
+      .mobile-stack {
+        width: min(calc(100% - 36px), 420px);
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 42px;
+        position: relative;
+        z-index: 3;
+      }
+      .mobile-item {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .mobile-item .visual-card {
+        width: min(72vw, 300px);
+        height: clamp(96px, 22vw, 132px);
+      }
+      .mobile-item .feature-box {
+        width: min(100%, 360px);
+      }
+      .feature-title {
+        font-size: clamp(24px, 6.2vw, 30px);
+        margin-bottom: 10px;
+      }
+      .feature-desc {
+        font-size: clamp(15px, 4vw, 17px);
+        line-height: 1.68;
+      }
+      :root {
+        --cta-min-width: 98px;
+        --cta-height: 24px;
+        --cta-pad-right: 18px;
+        --cta-pad-left: 13px;
+        --cta-font-size: 12px;
+      }
+      .mobile-item.reverse .visual-card {
+        order: 1;
+        align-self: flex-end;
+      }
+      .mobile-item.reverse .feature-box {
+        order: 2;
+        align-self: flex-end;
+      }
+      .mobile-item:not(.reverse) .visual-card {
+        order: 1;
+        align-self: flex-start;
+      }
+      .mobile-item:not(.reverse) .feature-box {
+        order: 2;
+        align-self: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="digital-wave-wrap">
+    <section class="digital-wave-canvas" aria-label="擁抱數位浪潮">
+      <div class="hero-title layer desktop-only">
+        <img class="hero-title-glow" src="hug/擁抱數位浪潮/images/title_1.png" alt="">
+        <img class="hero-title-main" src="hug/擁抱數位浪潮/images/title_2.png" alt="擁抱數位浪潮">
+      </div>
+      <p class="hero-subtitle layer desktop-only">
+        主動走進您的數位生活空間，<br>
+        讓專業服務不再受限於地理位置
+      </p>
+
+      <div class="visual-card card-1 layer desktop-only" aria-hidden="true"></div>
+      <div class="feature-box feature-1 layer desktop-only">
+        <h2 class="feature-title">社群互動溫度</h2>
+        <p class="feature-desc">透過 <span class="highlight">FB、IG 與 Threads</span>，分享專<br>業知識並即時對話，將冰冷的規<br>格參數轉化為充滿溫度的介紹。</p>
+        <a class="cta" href="#">追蹤我們&gt;&gt;</a>
+      </div>
+
+      <div class="feature-box feature-2 layer desktop-only">
+        <h2 class="feature-title">全方位電商</h2>
+        <p class="feature-desc">深耕各大電商品牌並且打造品牌<br>官網、打破距離限制，讓全台各地<br>的客戶都能享受華克嚴選的<span class="highlight">電腦<br>設備與貼心服務</span></p>
+        <a class="cta" href="#">來去逛逛&gt;&gt;</a>
+      </div>
+      <div class="visual-card card-2 layer desktop-only" aria-hidden="true"></div>
+
+      <div class="visual-card card-3 layer desktop-only" aria-hidden="true"></div>
+      <div class="feature-box feature-3 layer desktop-only">
+        <h2 class="feature-title">線上線下整合</h2>
+        <p class="feature-desc">將三十年門市信譽轉化為<span class="highlight">數位品<br>牌官網</span>無論螢幕前或實體店面，<br>都能感受一致親切服務！</p>
+        <a class="cta" href="#">最新活動頁面&gt;&gt;</a>
+      </div>
+
+      <div class="hero-title layer mobile-only">
+        <img class="hero-title-glow" src="hug/擁抱數位浪潮/images/title_1.png" alt="">
+        <img class="hero-title-main" src="hug/擁抱數位浪潮/images/title_2.png" alt="擁抱數位浪潮">
+      </div>
+      <p class="hero-subtitle layer mobile-only">
+        主動走進您的數位生活空間，<br>
+        讓專業服務不再受限於地理位置
+      </p>
+
+      <div class="mobile-stack mobile-only">
+        <div class="mobile-item">
+          <div class="visual-card card-1" aria-hidden="true"></div>
+          <div class="feature-box">
+            <h2 class="feature-title">社群互動溫度</h2>
+            <p class="feature-desc">透過 <span class="highlight">FB、IG 與 Threads</span>，分享專業知識並即時對話，將冰冷的規格參數轉化為充滿溫度的介紹。</p>
+            <a class="cta" href="#">追蹤我們&gt;&gt;</a>
+          </div>
+        </div>
+
+        <div class="mobile-item reverse">
+          <div class="feature-box">
+            <h2 class="feature-title">全方位電商</h2>
+            <p class="feature-desc">深耕各大電商品牌並且打造品牌官網、打破距離限制，讓全台各地的客戶都能享受華克嚴選的<span class="highlight">電腦設備與貼心服務</span></p>
+            <a class="cta" href="#">來去逛逛&gt;&gt;</a>
+          </div>
+          <div class="visual-card card-2" aria-hidden="true"></div>
+        </div>
+
+        <div class="mobile-item">
+          <div class="visual-card card-3" aria-hidden="true"></div>
+          <div class="feature-box">
+            <h2 class="feature-title">線上線下整合</h2>
+            <p class="feature-desc">將三十年門市信譽轉化為<span class="highlight">數位品牌官網</span>無論螢幕前或實體店面，都能感受一致親切服務！</p>
+            <a class="cta" href="#">最新活動頁面&gt;&gt;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
