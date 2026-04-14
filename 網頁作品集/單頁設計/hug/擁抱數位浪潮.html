@@ -165,12 +165,14 @@
       }
       .digital-wave-canvas {
         width: 100%;
+        max-width: 480px;
         min-width: 0;
         height: auto;
         flex: 1 1 auto;
         min-height: 100svh;
         aspect-ratio: auto;
         padding: 40px 0 56px;
+        margin: 0 auto;
       }
       .hero-title, .hero-subtitle, .visual-card, .feature-box { position: static; }
       .hero-title.layer, .hero-subtitle.layer, .visual-card.layer, .feature-box.layer { display: block; }
@@ -187,9 +189,11 @@
       }
       .mobile-stack {
         width: min(calc(100% - 36px), 420px);
+        max-width: 420px;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 42px;
         position: relative;
         z-index: 3;
@@ -198,13 +202,23 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
+        width: 100%;
+        align-items: center;
       }
       .mobile-item .visual-card {
-        width: min(72vw, 300px);
-        height: clamp(96px, 22vw, 132px);
+        width: min(76vw, 312px);
+        height: clamp(112px, 26vw, 148px);
       }
       .mobile-item .feature-box {
         width: min(100%, 360px);
+        max-width: 360px;
+        text-align: center;
+      }
+      .mobile-item .cta {
+        display: flex;
+        align-self: flex-start;
+        margin-left: 0;
+        margin-right: auto;
       }
       .feature-title {
         font-size: clamp(24px, 6.2vw, 30px);
@@ -223,19 +237,19 @@
       }
       .mobile-item.reverse .visual-card {
         order: 1;
-        align-self: flex-end;
+        align-self: center;
       }
       .mobile-item.reverse .feature-box {
         order: 2;
-        align-self: flex-end;
+        align-self: center;
       }
       .mobile-item:not(.reverse) .visual-card {
         order: 1;
-        align-self: flex-start;
+        align-self: center;
       }
       .mobile-item:not(.reverse) .feature-box {
         order: 2;
-        align-self: flex-start;
+        align-self: center;
       }
     }
   </style>
